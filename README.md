@@ -1,45 +1,48 @@
-# auto-commit
-
-🌳 Making green your Github stats, powered by [Github Actions](https://github.com/features/actions)
-
-[![Auto commit](https://github.com/mazipan/auto-commit/workflows/Auto%20commit/badge.svg)](https://github.com/mazipan/auto-commit/actions?query=workflow%3A%22Auto+commit%22)
-
-![Mazipan's Github Stats](https://ghchart.rshah.org/mazipan)
-
-## Make it your own
-
-- Create your own repo with click "**Use this template**" button (forked repo will not work)
-
-Or just do in the manual way:
-
-- Create your own repo
-- Copy file `.github/workflows/autocommit.yml` and `LAST_UPDATED` to your repo
-- Change the `email` and `name` information on file [autocommit.yml, line 29 and 30](https://github.com/mazipan/auto-commit/blob/master/.github/workflows/autocommit.yml#L29)
-- Change the scheduling time on file [autocommit.yml, line 10](https://github.com/mazipan/auto-commit/blob/master/.github/workflows/autocommit.yml#L10). You can use [crontab.guru](https://crontab.guru/) if you are not familiar with the cron schedule string. For first time, you can try to run it in every hour with string `1 * * * *` .
-- Consider to support me, at least click the 🌟 button
-
-## Article (in Bahasa Indonesia)
-
-- https://mazipan.space/membuat-commit-otomatis-ke-github/
-
-## Repo using this auto-commit
-
-- You can add your repo here
+# Github代码自动Commit
 
 
-## Credits
+自动保持 GitHub 提交状态常绿。
 
-- [Github Actions](https://github.com/features/actions)
-- [ad-m/github-push-action](https://github.com/ad-m/github-push-action)
 
-## Consider to Support
+## 原理
 
-- 👉 🇮🇩 [Trakteer](https://trakteer.id/mazipan?utm_source=github)
-- 👉 🌍 [BuyMeACoffe](https://www.buymeacoffee.com/mazipan?utm_source=github)
-- 👉 🌍 [Paypal](https://www.paypal.me/mazipan?utm_source=github)
-- 👉 🌍 [Ko-Fi](https://ko-fi.com/mazipan)
+使用 GitHub Actions 的定时任务功能，每隔一段时间自动执行 `git commit`，提交信息为 "Make Program Every Day!"
 
----
 
-© 2020 Crafted by Irfan Maulana
+## 使用
 
+- 点右上角 **Use this template** 按钮复制本 GitHub 仓库，**:warning: 千万不要 Fork，因为 fork 项目的动态并不会让你变绿 :warning:**
+- 修改 [ci.yml 文件的第 19、20 行](https://github.com/justjavac/auto-green/blob/master/.github/workflows/ci.yml#L19) 为自己的 GitHub 账号和昵称
+- (可选) 你可以通过修改 [ci.yml 文件的第 8 行](https://github.com/justjavac/auto-green/blob/master/.github/workflows/ci.yml#L8)来调整频率
+
+计划任务语法有 5 个字段，中间用空格分隔，每个字段代表一个时间单位。
+
+```plain
+┌───────────── 分钟 (0 - 59)
+│ ┌───────────── 小时 (0 - 23)
+│ │ ┌───────────── 日 (1 - 31)
+│ │ │ ┌───────────── 月 (1 - 12 或 JAN-DEC)
+│ │ │ │ ┌───────────── 星期 (0 - 6 或 SUN-SAT)
+│ │ │ │ │
+│ │ │ │ │
+│ │ │ │ │
+* * * * *
+```
+
+每个时间字段的含义：
+
+|符号   | 描述        | 举例                                        |
+| ----- | -----------| -------------------------------------------|
+| `*`   | 任意值      | `* * * * *` 每天每小时每分钟                  |
+| `,`   | 值分隔符    | `1,3,4,7 * * * *` 每小时的 1 3 4 7 分钟       |
+| `-`   | 范围       | `1-6 * * * *` 每小时的 1-6 分钟               |
+| `/`   | 每         | `*/15 * * * *` 每隔 15 分钟                  |
+
+**注**：由于 GitHub Actions 的限制，如果设置为 `* * * * *` 实际的执行频率为每 5 分执行一次。
+
+## License
+
+[auto-green](https://github.com/justjavac/auto-green) is released under the MIT License. See the bundled [LICENSE](./LICENSE) file for details.
+
+
+Powered by GerMay
